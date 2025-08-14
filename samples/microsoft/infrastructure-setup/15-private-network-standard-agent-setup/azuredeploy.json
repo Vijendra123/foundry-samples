@@ -1991,8 +1991,8 @@
                 ]
               },
               "dependsOn": [
-                "[resourceId('Microsoft.Network/privateDnsZones/virtualNetworkLinks', variables('apiManagementDnsZoneName'), format('apiManagement-{0}-link', parameters('suffix')))]",
-                "[resourceId('Microsoft.Network/privateDnsZones', variables('apiManagementDnsZoneName'))]",
+                "[resourceId('Microsoft.Network/privateDnsZones/virtualNetworkLinks', 'privatelink.azure-api.net', format('apiManagement-{0}-link', parameters('suffix')))]",
+                "[resourceId('Microsoft.Network/privateDnsZones', 'privatelink.azure-api.net')]",
                 "[resourceId('Microsoft.Network/privateEndpoints', format('{0}-private-endpoint', parameters('apiManagementName')))]"
               ]
             }
