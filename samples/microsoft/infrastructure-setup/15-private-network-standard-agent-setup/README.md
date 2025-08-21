@@ -103,6 +103,8 @@ Note: If not provided, the following resources will be created automatically for
 - Azure AI Search
 - Azure Storage
 
+**Optional Integration:** API Management services can be integrated by providing an existing API Management service resource ID.
+
 #### Parameters
 
 1. **Use Existing Virtual Network and Subnets**
@@ -138,6 +140,11 @@ To use an existing Azure AI Search resource, set aiSearchServiceResourceId param
 
 To use an existing Azure Storage account, set aiStorageAccountResourceId parameter to the full Azure resource Id of the target Azure Storage account resource. 
 - param aiStorageAccountResourceId string = /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}
+
+5. **Use an existing Azure API Management service**
+
+To use an existing Azure API Management service, set apiManagementResourceId parameter to the full Azure resource Id of the target Azure API Management service.
+- param apiManagementResourceId string = /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{apiManagementServiceName}
 
 ---
 
@@ -267,6 +274,7 @@ Private endpoints ensure secure, internal-only connectivity. Private endpoints a
 - Azure AI Search
 - Azure Storage
 - Azure Cosmos DB
+- Azure API Management (if provided)
 
 **Private DNS Zones**
 | Private Link Resource Type | Sub Resource | Private DNS Zone Name | Public DNS Zone Forwarders |
@@ -275,6 +283,7 @@ Private endpoints ensure secure, internal-only connectivity. Private endpoints a
 | **Azure AI Search**        | searchService| `privatelink.search.windows.net` | `search.windows.net` |
 | **Azure Cosmos DB**        | Sql          | `privatelink.documents.azure.com` | `documents.azure.com` |
 | **Azure Storage**          | blob         | `privatelink.blob.core.windows.net` | `blob.core.windows.net` |
+| **Azure API Management** (Optional) | Gateway     | `privatelink.azure-api.net` | `azure-api.net` |
 
 ### Authentication & Authorization
 

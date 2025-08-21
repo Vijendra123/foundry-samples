@@ -68,13 +68,7 @@
     "projectCapHost": {
       "value": ""
     },
-    "apiManagementName": {
-      "value": ""
-    },
-    "apiManagementResourceGroupName": {
-      "value": ""
-    },
-    "apiManagementSubscriptionId": {
+    "apiManagementResourceId": {
       "value": ""
     },
     "existingDnsZones": {
