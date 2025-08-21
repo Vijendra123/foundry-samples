@@ -416,9 +416,9 @@ resource aiServicesDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGr
     ]
   }
   dependsOn: [
-    aiServicesLink
-    openAiLink
-    cognitiveServicesLink
+    empty(aiServicesDnsZoneRG) ? aiServicesLink : null
+    empty(openAiDnsZoneRG) ? openAiLink : null
+    empty(cognitiveServicesDnsZoneRG) ? cognitiveServicesLink : null
   ]
 }
 resource aiSearchDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2024-05-01' = {
@@ -430,7 +430,7 @@ resource aiSearchDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGrou
     ]
   }
   dependsOn: [
-    aiSearchLink
+    empty(aiSearchDnsZoneRG) ? aiSearchLink : null
   ]
 }
 resource storageDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2024-05-01' = {
@@ -442,7 +442,7 @@ resource storageDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroup
     ]
   }
   dependsOn: [
-    storageLink
+    empty(storageDnsZoneRG) ? storageLink : null
   ]
 }
 resource cosmosDBDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2024-05-01' = {
@@ -454,7 +454,7 @@ resource cosmosDBDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGrou
     ]
   }
   dependsOn: [
-    cosmosDBLink
+    empty(cosmosDBDnsZoneRG) ? cosmosDBLink : null
   ]
 }
 resource apiManagementDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2024-05-01' = if (!empty(apiManagementName)) {

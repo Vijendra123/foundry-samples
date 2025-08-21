@@ -86,6 +86,10 @@ param existingDnsZones object
 @description('List of private DNS zone names to validate')
 param dnsZoneNames array
 
+var dnsZoneTypes = [
+  'Microsoft.Network/privateDnsZones'
+]
+
 // Output whether each DNS zone exists
 output dnsZoneExists array = [
   for zoneName in dnsZoneNames: {
