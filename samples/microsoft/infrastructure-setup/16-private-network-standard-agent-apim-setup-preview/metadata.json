@@ -1,0 +1,12 @@
+{
+  "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+  "type": "QuickStart",
+  "itemDisplayName": "Network Secured Standard Agent Setup with API Management (Preview)",
+  "description": "This set of templates demonstrates how to set up Azure AI Agent Service with the network secured standard setup environment and Azure API Management integration for enhanced gateway capabilities.",
+  "summary": "This set of templates demonstrates how to use Azure AI Agent Service with your own virtual network and Azure API Management for enhanced API gateway functionality.",
+  "githubUsername": "fosteramanda",
+  "dateUpdated": "2025-06-24",
+  "environments": [
+    "AzureCloud"
+  ]
+}
