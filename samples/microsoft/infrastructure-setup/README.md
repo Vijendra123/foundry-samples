@@ -46,3 +46,12 @@ Azure AI Agent Service offers three deployment modes optimized for agent workloa
     - These resources are connected to your project to store files, threads, and vector data.
   - Bring your own Virtual Network and subnets (or one will be created for you)
   - Higher cost with this setup because you also pay for the usage of Azure Storage, Azure AI Search, and Cosmos DB resources
+
+### [16-private-network-standard-agent-apim-setup-preview/](./16-private-network-standard-agent-apim-setup-preview/README.md)
+
+- Deploys a Network Secured Standard Agent environment with Azure API Management integration (Preview):
+  - Everything from the standard network secured setup (folder 15)
+  - Optional integration with existing Azure API Management service for enhanced API gateway capabilities
+  - Provides request/response transformation, throttling, authentication, and monitoring features
+  - APIM is connected via private endpoint for secure communication within your network perimeter
+  - Preview feature - requires existing APIM service resource ID to be provided
