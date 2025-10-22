@@ -14,8 +14,9 @@ languages:
 
 > **IMPORTANT**
 > 
-> Class A subnet support is only available in a limited number of regions and requires your subscription id be allowlisted. Please reach out to fosteramanda@microsoft.com if you are interested in getting access.
- **Supported regions: West US, East US, East US 2, Central US, Japan East, France Central, Spain Central, UAE North**
+> Class A subnet support is only available in a limited number of regions and requires your subscription id be allowlisted. Please fill out [**this form**](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR9ZHnlM2xH1ElCCWV7X_lllUNzJLV0FJWU4zSjVKUFpQUUJPQTlGOVVMSC4u) if you are interested in getting access.
+**Supported regions: West US, East US, East US 2, Japan East, France Central, UAE North, South Central US, Italy North, Germany West Central, Brazil South, South Africa North, Australia East, Sweden Central, Canada East, West Europe**
+
 >
 > Class B and C subnet support is already GA and available in all regions supported by Azure AI Foundry Agent Service. No subscription allowlisting is required. Deployment templates and setup steps are identical for Class A, B, and C subnets; Class A remains in private preview solely because of its limited region coverage. For more on the supported regions of the Azure AI Foundry Agent service, see [Models supported by Azure AI Foundry Agent Service](https://learn.microsoft.com/en-us/azure/ai-foundry/agents/concepts/model-region-support?tabs=global-standard)
 
@@ -32,7 +33,7 @@ This implementation gives you full control over the inbound and outbound communi
 ## Key Information
 
 **Limited Region Support for Class A Subnet IPs**
-- Class A subnet support is only available in select regions and requires allowlisting of your subscription ID. **Supported regions: West US, East US, East US 2, Central US, Japan East, France Central, Spain Central, UAE North**
+- Class A subnet support is only available in select regions and requires allowlisting of your subscription ID. 
 
 **Region and Resource Placement Requirements**
 - **All Foundry workspace resources should be in the same region as the VNet**, including CosmosDB, Storage Account, AI Search, Foundry Account, Project, Managed Identity. The only exception is within the Foundry Account, you may choose to deploy your model to a different region, and any cross-region communication will be handled securely within our network infrastructure.
@@ -80,7 +81,8 @@ This implementation gives you full control over the inbound and outbound communi
 2. Two subnets are needed as well:  
     - **Agent Subnet** (e.g., 192.168.0.0/24): Hosts Agent client for Agent workloads, delegated to Microsoft.App/environments. The recommended size should be /24 for this delegated subnet. 
     - **Private endpoint Subnet** (e.g. 192.168.1.0/24): Hosts private endpoints 
-    - Ensure that the address spaces for these subnets do not overlap with any existing networks in your Azure environment or reserved IP ranges like the following: 169.254.0.0/16, 172.30.0.0/16, 172.31.0.0/16, 192.0.2.0/24, 0.0.0.0/8, 127.0.0.0/8, 100.100.0.0/17, 100.100.192.0/19, 100.100.224.0/19, 10.0.0.0/8.
+    - Ensure that the address spaces for the used VNET does not overlap with any existing networks in your Azure environment or reserved IP ranges like the following: 169.254.0.0/16,172.30.0.0/16,172.31.0.0/16,192.0.2.0/24,0.0.0.0/8,127.0.0.0/8,100.100.0.0/17,100.100.192.0/19,100.100.224.0/19,10.0.0.0/8.
+    This includes all address space(s) you have in your VNET if you have more than one, and peered VNETs.
   
   > **Notes:** 
   - If you do not provide an existing virtual network, the template will create a new virtual network with the default address spaces and subnets described above. If you use an existing virtual network, make sure it already contains two subnets (Agent and Private Endpoint) before deploying the template.
@@ -90,8 +92,7 @@ This implementation gives you full control over the inbound and outbound communi
   
 
   **Limitations:**
-  - Class A subnet support is only available in a limited number of regions and requires your subscription id be allowlisted. Please reach out to fosteramanda@microsoft.com if you are interested in getting access.
-    - Supported regions: West US, East US, East US 2, Central US, Japan East, France Central, [New] Spain Central, [New] UAE North
+  - Class A subnet support is only available in a limited number of regions and requires your subscription id be allowlisted. Please fill out [**this form**](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR9ZHnlM2xH1ElCCWV7X_lllUNzJLV0FJWU4zSjVKUFpQUUJPQTlGOVVMSC4u) if you are interested in getting access.
   - The capability host sub-resources of Resource/Project must be deleted before deleting the Resource/Project resource itself. You can use the script __deleteCaphost.sh__ located in this folder to delete it.  
 
 
@@ -165,7 +166,7 @@ Click the deploy to Azure button above to open the Azure portal and deploy the t
 
 > **Note:** To access your Foundry resource securely, use either a VM, VPN, or ExpressRoute.
 
----
+---  
 
 ## Network Secured Agent Project Architecture Deep Dive
 
@@ -349,6 +350,167 @@ modules-network-secured/
 4. Review network security groups
 
 ---
+---
+# (Optional) Adding Multiple Projects to AI Foundry Deployment
+
+This guide explains how to add additional projects to your existing AI Foundry deployment with network security and capability hosts.
+
+## Overview
+
+After deploying your initial AI Foundry setup using `main.bicep`, you can add additional projects using the modular approach provided in this repository. Each new project will:
+
+- ✅ **Reuse existing shared infrastructure** (AI Services account, Storage, Cosmos DB, AI Search, VNet)
+- ✅ **Create independent projects** with unique identities and connections
+- ✅ **Set up proper role assignments** and capability hosts for each project
+- ✅ **Maintain network security** configurations from your original deployment
+- ✅ **Deploy independently** without affecting existing projects
+
+## Files Added
+
+### Core Deployment Files
+
+| File | Purpose |
+|------|---------|
+| `add-project.bicep` | Main Bicep template for adding new projects |
+| `add-project.bicepparam` | Parameters file template for new projects |
+| `modules-network-secured/ai-project-identity-unique.bicep` | Modified project module with unique connection names |
+| `modules-network-secured/blob-storage-container-role-assignments-unique.bicep` | Modified storage role assignment module |
+
+### Helper Files
+
+| File | Purpose |
+|------|---------|
+| `get-existing-resources.ps1` | PowerShell script to discover existing resource names |
+
+## Prerequisites
+
+1. ✅ **Existing AI Foundry deployment** completed using `main.bicep`
+2. ✅ **Azure CLI** installed and logged in
+3. ✅ **Proper permissions** on the resource group and existing resources
+4. ✅ **Resource names** from your existing deployment
+
+## Step-by-Step Guide
+
+### Step 1: Discover Existing Resource Names
+
+Run the PowerShell script to automatically discover your existing resource names:
+
+```powershell
+# Navigate to your repository folder
+cd "path\to\your\AgentRepro\folder"
+
+# Run the discovery script
+.\get-existing-resources.ps1 -ResourceGroupName "your-resource-group-name"
+
+# Optional: Include subscription ID if needed
+.\get-existing-resources.ps1 -ResourceGroupName "your-resource-group-name" -SubscriptionId "your-subscription-id"
+```
+
+**Example output:**
+```
+=== Summary for add-project.bicepparam ===
+param existingAccountName = 'aiservicesytlz'
+param existingAiSearchName = 'aiservicesytlzsearch'
+param existingStorageName = 'aiservicesytlzstorage'
+param existingCosmosDBName = 'aiservicesytlzcosmosdb'
+param accountResourceGroupName = 'agenticvnet'
+param aiSearchResourceGroupName = 'agenticvnet'
+param storageResourceGroupName = 'agenticvnet'
+param cosmosDBResourceGroupName = 'agenticvnet'
+```
+
+### Step 2: Configure Parameters File
+
+Copy the output from Step 1 and update your `add-project.bicepparam` file:
+
+### Step 3: Deploy the New Project
+
+Deploy using Azure CLI:
+
+```powershell
+az deployment group create `
+  --resource-group "your-resource-group" `
+  --template-file "add-project.bicep" `
+  --parameters "add-project.bicepparam"
+```
+
+## Adding Multiple Projects
+
+To add additional projects, repeat the process with different parameter values:
+
+### For a Third Project:
+
+1. **Update project-specific parameters:**
+   ```bicep
+   param projectName = 'thirdproject'  // Must be unique
+   param displayName = 'Third Project'
+   param projectCapHost = 'caphostthird'  // Must be unique
+   ```
+
+3. **Deploy using the new parameters file:**
+   ```powershell
+   az deployment group create `
+     --resource-group "your-resource-group" `
+     --template-file "add-project.bicep" `
+     --parameters "add-project.bicepparam"
+   ```
+
+## What Gets Created
+
+Each new project deployment creates:
+
+| Resource | Description |
+|----------|-------------|
+| **AI Foundry Project** | New project under your existing AI Services account |
+| **Managed Identity** | Project-specific system-assigned identity |
+| **Unique Connections** | Project-specific connections to shared resources |
+| **Capability Host** | Configured for Agents with proper connections |
+| **RBAC Assignments** | Proper permissions on shared resources |
+
+### Role Assignments Created:
+
+- ✅ **Storage Blob Data Contributor** on Storage Account
+- ✅ **Storage Blob Data Owner** on project-specific containers
+- ✅ **Cosmos DB Operator** on Cosmos DB Account
+- ✅ **Cosmos Built-In Data Contributor** on project-specific containers
+- ✅ **Search Index Data Contributor** on AI Search Service
+- ✅ **Search Service Contributor** on AI Search Service
+
+## Configuration Reference
+
+### Required Parameters (Must Customize for Each Project)
+
+| Parameter | Description | Example |
+|-----------|-------------|---------|
+| `projectName` | Unique name for the project | `'secondproject'` |
+| `displayName` | Display name in Azure portal | `'Second Project'` |
+| `projectCapHost` | Unique capability host name | `'caphostsecond'` |
+| `projectDescription` | Description of the project | `'My second AI project'` |
+
+### Existing Resource Parameters (From Script)
+
+| Parameter | Description | Source |
+|-----------|-------------|---------|
+| `existingAccountName` | AI Services account name | Output from `get-existing-resources.ps1` |
+| `existingAiSearchName` | AI Search service name | Output from `get-existing-resources.ps1` |
+| `existingStorageName` | Storage account name | Output from `get-existing-resources.ps1` |
+| `existingCosmosDBName` | Cosmos DB account name | Output from `get-existing-resources.ps1` |
+| `*ResourceGroupName` | Resource group names | Usually same as deployment RG |
+| `*SubscriptionId` | Subscription IDs | Usually same subscription |
+
+
+## Security Considerations
+
+- ✅ **Least Privilege**: Each project gets only the permissions it needs
+- ✅ **Isolated Containers**: Projects get separate storage containers
+- ✅ **Network Security**: Inherits network security from original deployment
+- ✅ **Unique Identities**: Each project has its own managed identity
+
+## Limitations
+
+- 📝 All projects share the same model deployments
+- 📝 Projects must be in the same region as the original deployment
+- 📝 Network configuration is inherited from original deployment
 
 ## References
 
