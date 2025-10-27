@@ -48,9 +48,8 @@ param deploymentInPath string = 'false'  // Controls how deployment names are pa
 
 param inferenceAPIVersion string = '2024-02-01'  // API version for inference calls
 
-// Static model list configuration
-// Define the static models array as objects, then serialize as JSON string
-var staticModelsArray = [
+// Static model list configuration - accept as parameter
+param staticModels array = [
   {
     name: 'gpt-4'
     properties: {
@@ -88,7 +87,7 @@ var staticModelsArray = [
 var modelGatewayMetadata = {
   deploymentInPath: deploymentInPath
   inferenceAPIVersion: inferenceAPIVersion
-  models: string(staticModelsArray)  // Serialize static models array as JSON string
+  models: string(staticModels)  // Serialize static models array as JSON string
 }
 
 // Use the common module to create the ModelGateway connection

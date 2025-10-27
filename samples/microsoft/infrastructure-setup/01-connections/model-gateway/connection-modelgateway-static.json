@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.37.4.10188",
-      "templateHash": "10659619809997087837"
+      "templateHash": "12322628902215141096"
     }
   },
   "parameters": {
@@ -47,47 +47,50 @@
     "inferenceAPIVersion": {
       "type": "string",
       "defaultValue": "2024-02-01"
+    },
+    "staticModels": {
+      "type": "array",
+      "defaultValue": [
+        {
+          "name": "gpt-4",
+          "properties": {
+            "model": {
+              "name": "gpt-4",
+              "version": "0613",
+              "format": "OpenAI"
+            }
+          }
+        },
+        {
+          "name": "gpt-3.5-turbo",
+          "properties": {
+            "model": {
+              "name": "gpt-3.5-turbo",
+              "version": "0613",
+              "format": "OpenAI"
+            }
+          }
+        },
+        {
+          "name": "text-embedding-ada-002",
+          "properties": {
+            "model": {
+              "name": "text-embedding-ada-002",
+              "version": "2",
+              "format": "OpenAI"
+            }
+          }
+        }
+      ]
     }
   },
   "variables": {
     "generatedConnectionName": "[format('modelgateway-{0}-static', parameters('gatewayName'))]",
     "finalConnectionName": "[if(not(equals(parameters('connectionName'), '')), parameters('connectionName'), variables('generatedConnectionName'))]",
-    "staticModelsArray": [
-      {
-        "name": "gpt-4",
-        "properties": {
-          "model": {
-            "name": "gpt-4",
-            "version": "0613",
-            "format": "OpenAI"
-          }
-        }
-      },
-      {
-        "name": "gpt-3.5-turbo",
-        "properties": {
-          "model": {
-            "name": "gpt-3.5-turbo",
-            "version": "0613",
-            "format": "OpenAI"
-          }
-        }
-      },
-      {
-        "name": "text-embedding-ada-002",
-        "properties": {
-          "model": {
-            "name": "text-embedding-ada-002",
-            "version": "2",
-            "format": "OpenAI"
-          }
-        }
-      }
-    ],
     "modelGatewayMetadata": {
       "deploymentInPath": "[parameters('deploymentInPath')]",
       "inferenceAPIVersion": "[parameters('inferenceAPIVersion')]",
-      "models": "[string(variables('staticModelsArray'))]"
+      "models": "[string(parameters('staticModels'))]"
     }
   },
   "resources": [
