@@ -250,6 +250,39 @@ Specifies the API version for deployment management calls (listing deployments, 
 }
 ```
 
+### 6. CustomHeaders - **OPTIONAL**
+
+Specifies custom headers to be passed to ModelGateway for chat completion and inference calls. This allows you to include additional headers required by your gateway policies or routing logic.
+
+```json
+{
+  "customHeaders": {
+    "X-Custom-Policy": "production",
+    "X-Route-Version": "v2", 
+    "X-Client-ID": "foundry-agents"
+  }
+}
+```
+
+**Structure:**
+- **Type**: Dictionary/object with string keys and string values
+- **Usage**: Headers are added to all chat completion and inference requests
+
+**Usage by Azure Agents:**
+- Headers are included in all `/chat/completions` requests to ModelGateway
+- Applied alongside authentication headers
+- Useful for gateway policy routing, rate limiting, or custom logic
+
+**Example Custom Headers:**
+```json
+"customHeaders": {
+  "X-API-Version": "2024-02-01",
+  "X-Environment": "production",
+  "X-Route-Policy": "premium",
+  "X-Client-App": "foundry-agents"
+}
+```
+
 ## Basic ModelGateway Connection with Dynamic Discovery
 
 ```json
@@ -431,6 +464,41 @@ Specifies the API version for deployment management calls (listing deployments, 
       "deploymentInPath": "true",
       "inferenceAPIVersion": "2025-03-01",
       "deploymentAPIVersion": "2025-03-01"
+    }
+  }
+}
+```
+
+## ModelGateway Connection with Custom Headers
+
+ModelGateway connection with custom headers for gateway policy routing and client identification.
+
+```json
+{
+  "id": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/connections/gateway-custom-headers",
+  "name": "gateway-custom-headers",
+  "type": "Microsoft.MachineLearningServices/workspaces/connections",
+  "properties": {
+    "category": "ModelGateway",
+    "target": "https://enterprise-gateway.company.com/api",
+    "authType": "ApiKey",
+    "credentials": {
+      "key": "{api-key-reference}"
+    },
+    "metadata": {
+      "modelDiscovery": {
+        "listModelsEndpoint": "/v1/models",
+        "getModelEndpoint": "/v1/models/{deploymentName}",
+        "deploymentProvider": "OpenAI"
+      },
+      "deploymentInPath": "false",
+      "inferenceAPIVersion": "2024-02-01",
+      "customHeaders": {
+        "X-Environment": "production",
+        "X-Route-Policy": "premium",
+        "X-Client-App": "foundry-agents",
+        "X-API-Version": "2024-02-01"
+      }
     }
   }
 }

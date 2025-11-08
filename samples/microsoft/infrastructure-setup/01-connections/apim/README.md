@@ -50,11 +50,23 @@ az deployment group create \
   --parameters @parameters-static.json
 ```
 
+### Comprehensive APIM Connection
+```bash
+# 1. Edit parameters-comprehensive.json with your resource IDs
+# 2. Set only the parameters you need (make others empty/default)
+# 3. Deploy using the parameters file
+az deployment group create \
+  --resource-group <your-resource-group> \
+  --template-file connection-apim-comprehensive.bicep \
+  --parameters @parameters-comprehensive.json
+```
+
 ## Parameter Files
 
 - `parameters-basic.json`: For basic APIM connections with minimal configuration
 - `parameters-deployment-api.json`: For APIM connections with API versioning (includes inferenceAPIVersion and deploymentAPIVersion)
 - `parameters-dynamic.json`: For APIM connections with dynamic model discovery (includes OpenAI endpoint configurations)
 - `parameters-static.json`: For APIM connections with static model lists (includes customizable staticModels array)
+- `parameters-comprehensive.json`: For comprehensive APIM connections supporting all metadata options (set only parameters you need, leave others empty)
 
 Edit these files to update the resource IDs for your environment.

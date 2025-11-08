@@ -263,7 +263,41 @@ Static discovery uses a predefined `models` array in metadata. Models are define
 
 **If not specified**: Azure Agents will attempt dynamic discovery using `modelDiscovery` settings or APIM defaults
 
-## Example 1: All Defaults with Required Fields Only
+### 6. CustomHeaders - **OPTIONAL**
+
+Specifies custom headers to be passed to APIM gateway for chat completion and inference calls. This allows you to include additional headers required by your APIM policies or routing logic.
+
+```json
+{
+  "customHeaders": {
+    "X-Custom-Policy": "production",
+    "X-Route-Version": "v2", 
+    "X-Client-ID": "foundry-agents"
+  }
+}
+```
+
+**Structure:**
+- **Type**: Dictionary/object with string keys and string values
+- **Storage Format**: Must be stored as a JSON string (serialized)
+- **Usage**: Headers are added to all chat completion and inference requests
+
+**Usage by Azure Agents:**
+- Headers are included in all `/chat/completions` requests to APIM
+- Applied alongside authentication headers
+- Useful for APIM policy routing, rate limiting, or custom logic
+
+**Example Custom Headers:**
+```json
+"customHeaders": {
+  "X-API-Version": "2024-02-01",
+  "X-Environment": "production",
+  "X-Route-Policy": "premium",
+  "X-Client-App": "foundry-agents"
+}
+```
+
+## Examples
 
 Uses all APIM defaults, but provides fields: `deploymentInPath`, `inferenceAPIVersion`.
 
@@ -412,3 +446,32 @@ Predefined static list of models without dynamic discovery.
   }
 }
 ```
+
+## Example 6: APIM with Custom Headers
+
+APIM connection with custom headers for policy routing and client identification.
+
+```json
+{
+  "id": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/connections/apim-custom-headers",
+  "name": "apim-custom-headers",
+  "type": "Microsoft.MachineLearningServices/workspaces/connections",
+  "properties": {
+    "category": "ApiManagement",
+    "target": "https://enterprise-apim.azure-api.net/api",
+    "authType": "ApiKey",
+    "credentials": {
+      "key": "{api-key-reference}"
+    },
+    "metadata": {
+      "deploymentInPath": "true",
+      "inferenceAPIVersion": "2024-02-01",
+      "customHeaders": {
+        "X-Environment": "production",
+        "X-Route-Policy": "premium",
+        "X-Client-App": "foundry-agents",
+        "X-API-Version": "2024-02-01"
+      }
+    }
+  }
+}
