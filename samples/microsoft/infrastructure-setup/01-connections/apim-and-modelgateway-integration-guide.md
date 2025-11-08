@@ -138,67 +138,7 @@ graph TB
 - **If Static Models**: Use pre-configured model list directly
 - **If Discovery Endpoint**: Call `GET /models` through customer gateway to AI models
 
-**Inference Flow:**
-- Step 1: Foundry Agents Service reads connection configuration
-- Step 2: Foundry makes `POST /chat/completions` call to customer gateway
-- Step 3: Gateway forwards request to AI models
-
-**Configuration Options:**
-- **Static Configuration**: Model list is pre-configured in the connection
-- **Dynamic Discovery**: Agents Service calls customer gateway's discovery endpoint
-
-### 🚪 Supported Gateway Types
-
-| Gateway Type | Description | Key Features |
-|-------------|-------------|--------------|
-| **🏢 Azure API Management** | Enterprise-grade API gateway with built-in Azure integration and advanced security features | • Built-in Azure integration<br/>• Advanced security policies<br/>• Enterprise-grade scalability<br/>**📚 Sample Setup:** [AI Gateway with APIM](https://github.com/Azure-Samples/AI-Gateway) |
-| **🔧 Self-Hosted Gateways** | Custom gateway solutions deployed in your own infrastructure with full control | • Complete infrastructure control<br/>• Custom security implementations<br/>• Flexible deployment options |
-| **🌐 Third-Party Gateways** | Enterprise solutions like MuleSoft, Kong, or other API management platforms | • Vendor-specific features<br/>• Existing enterprise integrations<br/>• Multi-cloud capabilities |
-
-### ✅ Gateway Prerequisites
-
-To work with Foundry Agents Service, your gateway must meet these requirements:
-
-#### 1️⃣ **LLM Inferencing**
-- Expose a chat completion endpoint that supports standard AI model requests
-
-#### 2️⃣ **Model Discovery**
-Choose one of the following options:
-- **📋 Static Configuration**: Configure the deployment list in the connection metadata, or
-- **🔍 Dynamic Discovery**: Expose a get deployment endpoint on the gateway
-
-#### 3️⃣ **Authentication**
-- Use one of the available authentication methods supported by Foundry connections
-
-#### 4️⃣ **Networking**
-- **🌐 Public Networking**: If gateway endpoints are accessible on public internet, no separate setup required
-- **🔐 Fully Secured Network Setup**: Use Agents BYO VNet feature
-  - **For APIM**: Use [this Bicep template](../15-private-network-standard-agent-setup/) for secure setup
-  - **For other model gateways**: Ensure your gateway is reachable within the BYO VNet
-
----
-
-## 🔌 Connection Categories
-
-Foundry supports **two primary connection types** for gateway integration:
-
-### 🏢 APIM (API Management) Connections
-
-**Specialized connections designed for Azure API Management integration scenarios.**
-
-#### 🎯 Key Characteristics:
-- Uses `"category": "ApiManagement"` for proper APIM-specific handling
-- Provides intelligent defaults for standard APIM endpoints
-- Follows Azure API Management naming and routing conventions
-- Enterprise-ready fully secured network setup for production APIM gateway scenarios
-
-#### 🔐 Authentication Support:
-- **🔑 API Key**: Subscription key authentication
-- **🆔 Microsoft Entra ID**: Azure Active Directory integration *(coming soon)*
-
-### 🌉 ModelGateway Connections
-
-**Unified connections for various AI model providers through self-hosted or third-party gateways.**
+📋 **Detailed Configuration**: [ModelGateway Connection Configuration Guide](./model-gateway/README.md)
 
 #### 🎯 Key Characteristics:
 - Uses `"category": "ModelGateway"` for proper routing
@@ -239,16 +179,13 @@ Foundry supports **two primary connection types** for gateway integration:
 | **Azure CLI** | Latest version installed and configured | [Installation Guide](/cli/azure/install-azure-cli) |
 | **Foundry SDK** | Agents V2 SDK for development | *Link for agent v2* |
 | **Connection Setup** | Bicep templates for connections | *Link for connections bicep* |
-| **APIM Secured Setup** | Network secured APIM configuration | *Link for bicep* |
 
 ### 🚪 Gateway Prerequisites
 
-> [!NOTE]
-> **Detailed Setup Guide**: Consider creating separate documentation for APIM setup with screenshots and verification steps.
-
 #### 🏢 For Azure API Management
 
-> **💡 Future Enhancement**: Add multiple screenshots showing APIM setup, URL configuration, key management, deployment endpoint setup, and testing procedures.
+📚 **Complete Setup Guide**: [Azure API Management Setup for Foundry Agents](./apim-setup-guide.md)  
+*Step-by-step guide with screenshots showing APIM configuration, endpoint setup, and testing procedures*
 
 - **🏗️ APIM Instance**: Azure API Management Standard v2 or Premium tier
 - **🔑 Subscription Key**: Valid subscription key for API access  
@@ -284,6 +221,10 @@ Foundry supports **two primary connection types** for gateway integration:
 
 ### Step 2️⃣: Create Your Gateway Connection
 
+📚 **Detailed Instructions**:
+- **APIM Connections**: [APIM Connection Setup Guide](./apim/README.md) - Complete walkthrough for Azure API Management
+- **ModelGateway Connections**: [ModelGateway Setup Guide](./model-gateway/README.md) - Step-by-step for self-hosted/third-party gateways
+
 1. **📋 Choose the appropriate template**:
    ```bash
    # For Azure API Management
@@ -309,8 +250,7 @@ Foundry supports **two primary connection types** for gateway integration:
 
 ### Step 3️⃣: Deploy and Test an Agent
 
-> [!NOTE]
-> **Update Required**: This section needs to be updated to use Agents V2 SDK.
+📚 **Agent Development Guide**: [Azure AI Projects Agent Samples](https://github.com/Azure/azure-sdk-for-python/tree/feature/azure-ai-projects/2.0.0b1/sdk/ai/azure-ai-projects/samples/agents) - Complete samples and tutorials
 
 1. **🔧 Configure model deployment name**:
    ```bash
@@ -319,12 +259,8 @@ Foundry supports **two primary connection types** for gateway integration:
    ```
 
 2. **🤖 Create and run an agent**:
-   ```python
-   from azure.ai.foundry import AIFoundryClient
-   
-   client = AIFoundryClient.from_config()
-   # Your agent implementation using the gateway connection
-   ```
+
+   Use one of the agent samples from the [Azure AI Projects Agent Samples](https://github.com/Azure/azure-sdk-for-python/tree/feature/azure-ai-projects/2.0.0b1/sdk/ai/azure-ai-projects/samples/agents) repository to test your gateway connection.
 
 3. **✅ Validate the setup**:
    - Check connection status in Foundry portal
@@ -335,58 +271,12 @@ Foundry supports **two primary connection types** for gateway integration:
 
 ## 📚 Resources & Links
 
-### 📖 Documentation
+### 🔧 Setup Guides
 
 | Resource | Description | Link |
 |----------|-------------|------|
-| **🔗 Connection Types Overview** | Detailed connection configuration guide | [Connection Types Overview](../Connection-Types-Overview.md) |
-| **☁️ Foundry Docs** | Complete platform documentation | [Azure AI Foundry](/azure/ai-foundry/) |
-| **🏢 Azure API Management** | API Management documentation | [Azure API Management](/azure/api-management/) |
-
-### 💻 Sample Code and Templates
-
-- **📁 [Foundry Samples Repository](https://github.com/azure-ai-foundry/foundry-samples)**
-- **🛠️ [Connection Bicep Templates](https://github.com/azure-ai-foundry/foundry-samples/tree/main/samples/microsoft/infrastructure-setup/01-connections)**
-- **🤖 [Agent Development Samples](https://github.com/azure-ai-foundry/foundry-samples/tree/main/samples/microsoft/python/getting-started-agents)**
-
-### 🛠️ Tools and SDKs
-
-- **⚡ [Azure CLI Installation Guide](/cli/azure/install-azure-cli)**
-- **🐍 [Foundry Python SDK](https://pypi.org/project/azure-ai-foundry/)**
-- **🔗 [Foundry REST API Reference](/rest/api/azure-ai-foundry/)**
-
-### 🤝 Support and Community
-
-<table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
-<tr style="background-color: #f8f9fa;">
-<td style="padding: 15px; border: 1px solid #dee2e6; font-weight: bold;">🆘 Foundry Support</td>
-### 🤝 Support and Community
-
-| Support Type | Description |
-|-------------|-------------|
-| **🆘 Foundry Support** | [Official support channels](/azure/ai-foundry/support) |
-| **💬 Azure Community Forums** | [Community discussions](https://docs.microsoft.com/answers/topics/azure-ai-foundry.html) |
-| **🐛 GitHub Issues** | [Bug reports and feature requests](https://github.com/azure-ai-foundry/foundry-samples/issues) |
-
-### 🔗 Related Services
-
-- **🧠 [Azure OpenAI Service](/azure/cognitive-services/openai/)**
-- **🤖 [Azure AI Services](/azure/ai-services/)**
-- **📊 [Azure Machine Learning](/azure/machine-learning/)**
-
-### 📋 Best Practices and Guidelines
-
-- **🔐 [Security Best Practices](/azure/ai-foundry/security/gateway-security)**
-- **⚡ [Performance Optimization Guide](/azure/ai-foundry/performance/gateway-optimization)**
-- **🏢 [Enterprise Deployment Patterns](/azure/ai-foundry/enterprise/deployment-patterns)**
-
----
-
-> **🎯 Ready to Get Started?**  
-> Choose your gateway type and follow the step-by-step guide to integrate your enterprise AI infrastructure with Foundry.
-
----
-
-**Document Information**  
-Created: November 2025 | Version: 1.0 | Status: Preview Documentation  
-Last Updated: November 7, 2025
+| **🏢 Azure API Management Setup Guide** | Complete guide for importing AI Foundry and Azure OpenAI resources, adding list/get deployment endpoints, and verification | [APIM Setup Guide](./apim-setup-guide.md) |
+| **🔗 APIM Connection Configuration** | Detailed JSON schema, examples, and configuration options for APIM connections | [APIM Connection Objects](./apim/APIM-Connection-Objects.md) |
+| **🔗 ModelGateway Connection Configuration** | Detailed JSON schema, examples, and configuration options for ModelGateway connections | [ModelGateway Connection Objects](./model-gateway/ModelGateway-Connection-Objects.md) |
+| **📋 How to Create APIM Connections** | Step-by-step instructions for creating Azure API Management gateway connections | [APIM Connection Setup README](./apim/README.md) |
+| **📋 How to Create ModelGateway Connections** | Step-by-step instructions for creating ModelGateway connections for self-hosted/third-party gateways | [ModelGateway Setup README](./model-gateway/README.md) |
