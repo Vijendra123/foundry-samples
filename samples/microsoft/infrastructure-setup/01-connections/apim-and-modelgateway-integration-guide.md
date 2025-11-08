@@ -195,6 +195,8 @@ Specialized connections designed for Azure API Management integration scenarios.
 - **🔑 API Key**: Subscription key authentication
 - **🆔 Microsoft Entra ID**: Azure Active Directory integration (coming soon)
 
+📋 **Detailed Configuration**: [APIM Connection Objects](./apim/APIM-Connection-Objects.md)
+
 ### 🌉 ModelGateway Connections
 
 Unified connections for various AI model providers through self-hosted or third-party gateways.
@@ -204,6 +206,8 @@ Unified connections for various AI model providers through self-hosted or third-
 - Single interface for multiple AI providers (Azure OpenAI, OpenAI, etc.)
 - Supports both static model configuration and dynamic model discovery
 - Supports API Key and OAuth Client Credentials Authentication (OAuth coming soon)
+
+📋 **Detailed Configuration**: [ModelGateway Connection Objects](./model-gateway/ModelGateway-Connection-Objects.md)
 
 ---
 
