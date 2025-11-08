@@ -1,9 +1,7 @@
 # Bring Your Own AI Gateway to Foundry (Preview)
 
-<div style="background-color: #e6f3ff; padding: 20px; border-left: 5px solid #0078d4; margin: 20px 0;">
-<strong>🚀 Enterprise AI Integration</strong><br>
-Connect your existing AI model gateways with Foundry to maintain control while leveraging powerful agent capabilities.
-</div>
+> **🚀 Enterprise AI Integration**  
+> Connect your existing AI model gateways with Foundry to maintain control while leveraging powerful agent capabilities.
 
 ## 📋 Table of Contents
 
@@ -23,24 +21,12 @@ The **Bring Your Own AI Gateway** feature in Foundry enables organizations to co
 
 ### 💡 Key Benefits
 
-<table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
-<tr style="background-color: #f8f9fa;">
-<td style="padding: 15px; border: 1px solid #dee2e6; font-weight: bold;">🔒 Maintain Control</td>
-<td style="padding: 15px; border: 1px solid #dee2e6;">Keep your model endpoints secure behind your existing enterprise infrastructure</td>
-</tr>
-<tr>
-<td style="padding: 15px; border: 1px solid #dee2e6; font-weight: bold;">🏢 Enterprise Integration</td>
-<td style="padding: 15px; border: 1px solid #dee2e6;">Leverage your existing gateway investments and security policies</td>
-</tr>
-<tr style="background-color: #f8f9fa;">
-<td style="padding: 15px; border: 1px solid #dee2e6; font-weight: bold;">🔐 Secure Access</td>
-<td style="padding: 15px; border: 1px solid #dee2e6;">Build intelligent agents that use models without exposing them publicly</td>
-</tr>
-<tr>
-<td style="padding: 15px; border: 1px solid #dee2e6; font-weight: bold;">📊 Governance</td>
-<td style="padding: 15px; border: 1px solid #dee2e6;">Apply your organization's compliance and governance requirements to AI model access</td>
-</tr>
-</table>
+| Benefit | Description |
+|---------|-------------|
+| **🔒 Maintain Control** | Keep your model endpoints secure behind your existing enterprise infrastructure |
+| **🏢 Enterprise Integration** | Leverage your existing gateway investments and security policies |
+| **🔐 Secure Access** | Build intelligent agents that use models without exposing them publicly |
+| **📊 Governance** | Apply your organization's compliance and governance requirements to AI model access |
 
 > [!IMPORTANT]
 > **Preview Status**: This feature is currently in preview and may have breaking changes.
@@ -91,8 +77,6 @@ graph TD
     style F2 fill:#e8f4fd,color:#000,stroke:#03a9f4,stroke-width:1px
 ```
 
-<div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-
 **🔧 Configuration Components Breakdown:**
 
 | Component | Description | Examples |
@@ -100,8 +84,6 @@ graph TD
 | **🌐 Gateway Endpoints** | Base URLs, API versions, and custom headers | `https://my-gateway.company.com/api/v1`, `X-Custom-Header: value` |
 | **🔑 Authentication** | Security credentials and methods | API keys, OAuth tokens, Azure AD integration |
 | **🔍 Model Discovery** | How to find available models | Static list or dynamic discovery endpoint |
-
-</div>
 
 #### 2️⃣ Runtime Communication Flow (During Agent Execution)
 
@@ -141,8 +123,6 @@ graph TB
     style InferenceFlow fill:#f9f9f9,stroke:#666666,stroke-width:2px
 ```
 
-<div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-
 **🔄 Two Communication Flows with Connection Configuration:**
 
 | Flow Type | Steps | Purpose | API Calls |
@@ -163,17 +143,9 @@ graph TB
 - Step 2: Foundry makes `POST /chat/completions` call to customer gateway
 - Step 3: Gateway forwards request to AI models
 
-</div>
+**Configuration Options:**
 - **Static Configuration**: Model list is pre-configured in the connection
 - **Dynamic Discovery**: Agents Service calls customer gateway's discovery endpoint
-
-</div>
-
-> [!IMPORTANT]
-> **Key Architecture Points**: 
-> - The Foundry connection is **configuration only** - it's not in the data path
-> - All AI model requests flow **directly** from Agents Service to your gateway
-> - The connection acts as a **secure credential store** and endpoint registry
 
 ### 🚪 Supported Gateway Types
 
@@ -186,8 +158,6 @@ graph TB
 ### ✅ Gateway Prerequisites
 
 To work with Foundry Agents Service, your gateway must meet these requirements:
-
-<div style="background-color: #fff3cd; padding: 20px; border-radius: 8px; margin: 20px 0;">
 
 #### 1️⃣ **LLM Inferencing**
 - Expose a chat completion endpoint that supports standard AI model requests
@@ -206,8 +176,6 @@ Choose one of the following options:
   - **For APIM**: Use [this Bicep template](../15-private-network-standard-agent-setup/) for secure setup
   - **For other model gateways**: Ensure your gateway is reachable within the BYO VNet
 
-</div>
-
 ---
 
 ## 🔌 Connection Categories
@@ -215,8 +183,6 @@ Choose one of the following options:
 Foundry supports **two primary connection types** for gateway integration:
 
 ### 🏢 APIM (API Management) Connections
-
-<div style="background-color: #e6f3ff; padding: 25px; border-radius: 8px; margin: 20px 0;">
 
 **Specialized connections designed for Azure API Management integration scenarios.**
 
@@ -230,11 +196,7 @@ Foundry supports **two primary connection types** for gateway integration:
 - **🔑 API Key**: Subscription key authentication
 - **🆔 Microsoft Entra ID**: Azure Active Directory integration *(coming soon)*
 
-</div>
-
 ### 🌉 ModelGateway Connections
-
-<div style="background-color: #f0fff0; padding: 25px; border-radius: 8px; margin: 20px 0;">
 
 **Unified connections for various AI model providers through self-hosted or third-party gateways.**
 
@@ -250,8 +212,6 @@ Foundry supports **two primary connection types** for gateway integration:
 
 ## ⚠️ Current Limitations
 
-<div style="background-color: #fff3cd; padding: 20px; border-radius: 8px; border-left: 4px solid #ffc107; margin: 20px 0;">
-
 ### 🚧 Preview Limitations
 
 | Aspect | Current Status |
@@ -261,61 +221,25 @@ Foundry supports **two primary connection types** for gateway integration:
 | **🤖 Agent Support** | Supports Prompt Agents |
 | **🏢 APIM Tier Support** | Only Azure API Management Standard v2 and Premium tiers supported |
 
-</div>
-
 ---
 
 ## 📋 Prerequisites
 
 ### 🔧 Azure Requirements
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
-
-<div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px;">
-<h4>☁️ Azure Subscription</h4>
-<p>Active subscription with access to Foundry</p>
-</div>
-
-<div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px;">
-<h4>📊 Foundry Project</h4>
-<p>Configured project in your Foundry workspace</p>
-</div>
-
-</div>
+| Requirement | Description |
+|-------------|-------------|
+| **☁️ Azure Subscription** | Active subscription with access to Foundry |
+| **📊 Foundry Project** | Configured project in your Foundry workspace |
 
 ### 🛠️ Tools and SDKs
 
-<table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
-<thead style="background-color: #0078d4; color: white;">
-<tr>
-<th style="padding: 15px; text-align: left;">Tool</th>
-<th style="padding: 15px; text-align: left;">Description</th>
-<th style="padding: 15px; text-align: left;">Link</th>
-</tr>
-</thead>
-<tbody>
-<tr style="background-color: #f8f9fa;">
-<td style="padding: 15px; border: 1px solid #dee2e6;"><strong>Azure CLI</strong></td>
-<td style="padding: 15px; border: 1px solid #dee2e6;">Latest version installed and configured</td>
-<td style="padding: 15px; border: 1px solid #dee2e6;"><a href="/cli/azure/install-azure-cli">Installation Guide</a></td>
-</tr>
-<tr>
-<td style="padding: 15px; border: 1px solid #dee2e6;"><strong>Foundry SDK</strong></td>
-<td style="padding: 15px; border: 1px solid #dee2e6;">Agents V2 SDK for development</td>
-<td style="padding: 15px; border: 1px solid #dee2e6;"><em>Link for agent v2</em></td>
-</tr>
-<tr style="background-color: #f8f9fa;">
-<td style="padding: 15px; border: 1px solid #dee2e6;"><strong>Connection Setup</strong></td>
-<td style="padding: 15px; border: 1px solid #dee2e6;">Bicep templates for connections</td>
-<td style="padding: 15px; border: 1px solid #dee2e6;"><em>Link for connections bicep</em></td>
-</tr>
-<tr>
-<td style="padding: 15px; border: 1px solid #dee2e6;"><strong>APIM Secured Setup</strong></td>
-<td style="padding: 15px; border: 1px solid #dee2e6;">Network secured APIM configuration</td>
-<td style="padding: 15px; border: 1px solid #dee2e6;"><em>Link for bicep</em></td>
-</tr>
-</tbody>
-</table>
+| Tool | Description | Link |
+|------|-------------|------|
+| **Azure CLI** | Latest version installed and configured | [Installation Guide](/cli/azure/install-azure-cli) |
+| **Foundry SDK** | Agents V2 SDK for development | *Link for agent v2* |
+| **Connection Setup** | Bicep templates for connections | *Link for connections bicep* |
+| **APIM Secured Setup** | Network secured APIM configuration | *Link for bicep* |
 
 ### 🚪 Gateway Prerequisites
 
@@ -324,27 +248,19 @@ Foundry supports **two primary connection types** for gateway integration:
 
 #### 🏢 For Azure API Management
 
-<div style="background-color: #e6f3ff; padding: 20px; border-radius: 8px; margin: 15px 0;">
+> **💡 Future Enhancement**: Add multiple screenshots showing APIM setup, URL configuration, key management, deployment endpoint setup, and testing procedures.
 
 - **🏗️ APIM Instance**: Azure API Management Standard v2 or Premium tier
 - **🔑 Subscription Key**: Valid subscription key for API access  
 - **📦 Model Deployments**: AI models deployed and accessible through APIM
 - **🌐 Network Access**: APIM instance accessible from Foundry
 
-> **💡 Future Enhancement**: Add multiple screenshots showing APIM setup, URL configuration, key management, deployment endpoint setup, and testing procedures.
-
-</div>
-
 #### 🔧 For Self-Hosted/Third-Party Gateways
-
-<div style="background-color: #f0fff0; padding: 20px; border-radius: 8px; margin: 15px 0;">
 
 - **🌐 Gateway Endpoint**: Publicly accessible or network-accessible gateway URL
 - **🔐 API Credentials**: Valid API keys or OAuth credentials
 - **💬 Model Endpoints**: Chat completion endpoints exposed through your gateway
 - **🔍 Discovery Endpoints**: *(Optional)* Model discovery endpoints for dynamic configuration
-
-</div>
 
 ### 📚 Sample Code Access
 
@@ -356,8 +272,6 @@ Foundry supports **two primary connection types** for gateway integration:
 
 ### Step 1️⃣: Prepare Your Environment
 
-<div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-
 1. **📥 Clone the samples repository**:
    ```bash
    git clone https://github.com/azure-ai-foundry/foundry-samples.git
@@ -368,11 +282,7 @@ Foundry supports **two primary connection types** for gateway integration:
    - Use APIM templates for Azure API Management gateways
    - Use ModelGateway templates for other gateway types
 
-</div>
-
 ### Step 2️⃣: Create Your Gateway Connection
-
-<div style="background-color: #f0fff0; padding: 20px; border-radius: 8px; margin: 20px 0;">
 
 1. **📋 Choose the appropriate template**:
    ```bash
@@ -397,14 +307,10 @@ Foundry supports **two primary connection types** for gateway integration:
      --parameters @my-gateway-params.json
    ```
 
-</div>
-
 ### Step 3️⃣: Deploy and Test an Agent
 
 > [!NOTE]
 > **Update Required**: This section needs to be updated to use Agents V2 SDK.
-
-<div style="background-color: #fff3cd; padding: 20px; border-radius: 8px; margin: 20px 0;">
 
 1. **🔧 Configure model deployment name**:
    ```bash
@@ -425,32 +331,17 @@ Foundry supports **two primary connection types** for gateway integration:
    - Test agent responses  
    - Verify requests are routed through your gateway
 
-</div>
-
 ---
 
 ## 📚 Resources & Links
 
 ### 📖 Documentation
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 20px 0;">
-
-<div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #0078d4;">
-<h4>🔗 Connection Types Overview</h4>
-<p><a href="../Connection-Types-Overview.md">Detailed connection configuration guide</a></p>
-</div>
-
-<div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #28a745;">
-<h4>☁️ Foundry Docs</h4>
-<p><a href="/azure/ai-foundry/">Complete platform documentation</a></p>
-</div>
-
-<div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #ffc107;">
-<h4>🏢 Azure API Management</h4>
-<p><a href="/azure/api-management/">API Management documentation</a></p>
-</div>
-
-</div>
+| Resource | Description | Link |
+|----------|-------------|------|
+| **🔗 Connection Types Overview** | Detailed connection configuration guide | [Connection Types Overview](../Connection-Types-Overview.md) |
+| **☁️ Foundry Docs** | Complete platform documentation | [Azure AI Foundry](/azure/ai-foundry/) |
+| **🏢 Azure API Management** | API Management documentation | [Azure API Management](/azure/api-management/) |
 
 ### 💻 Sample Code and Templates
 
@@ -469,17 +360,13 @@ Foundry supports **two primary connection types** for gateway integration:
 <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
 <tr style="background-color: #f8f9fa;">
 <td style="padding: 15px; border: 1px solid #dee2e6; font-weight: bold;">🆘 Foundry Support</td>
-<td style="padding: 15px; border: 1px solid #dee2e6;"><a href="/azure/ai-foundry/support">Official support channels</a></td>
-</tr>
-<tr>
-<td style="padding: 15px; border: 1px solid #dee2e6; font-weight: bold;">💬 Azure Community Forums</td>
-<td style="padding: 15px; border: 1px solid #dee2e6;"><a href="https://docs.microsoft.com/answers/topics/azure-ai-foundry.html">Community discussions</a></td>
-</tr>
-<tr style="background-color: #f8f9fa;">
-<td style="padding: 15px; border: 1px solid #dee2e6; font-weight: bold;">🐛 GitHub Issues</td>
-<td style="padding: 15px; border: 1px solid #dee2e6;"><a href="https://github.com/azure-ai-foundry/foundry-samples/issues">Bug reports and feature requests</a></td>
-</tr>
-</table>
+### 🤝 Support and Community
+
+| Support Type | Description |
+|-------------|-------------|
+| **🆘 Foundry Support** | [Official support channels](/azure/ai-foundry/support) |
+| **💬 Azure Community Forums** | [Community discussions](https://docs.microsoft.com/answers/topics/azure-ai-foundry.html) |
+| **🐛 GitHub Issues** | [Bug reports and feature requests](https://github.com/azure-ai-foundry/foundry-samples/issues) |
 
 ### 🔗 Related Services
 
@@ -495,15 +382,11 @@ Foundry supports **two primary connection types** for gateway integration:
 
 ---
 
-<div style="background-color: #e6f3ff; padding: 20px; border-radius: 8px; text-align: center; margin: 30px 0;">
-<h3>🎯 Ready to Get Started?</h3>
-<p>Choose your gateway type and follow the step-by-step guide to integrate your enterprise AI infrastructure with Foundry.</p>
-</div>
+> **🎯 Ready to Get Started?**  
+> Choose your gateway type and follow the step-by-step guide to integrate your enterprise AI infrastructure with Foundry.
 
 ---
 
-<footer style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #dee2e6; color: #6c757d; text-align: center;">
-<p><strong>Document Information</strong></p>
-<p>Created: November 2025 | Version: 1.0 | Status: Preview Documentation</p>
-<p>Last Updated: November 7, 2025</p>
-</footer>
+**Document Information**  
+Created: November 2025 | Version: 1.0 | Status: Preview Documentation  
+Last Updated: November 7, 2025
