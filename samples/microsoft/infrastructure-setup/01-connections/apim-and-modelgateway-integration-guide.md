@@ -56,36 +56,39 @@ Foundry's gateway integration supports a flexible architecture that accommodates
 #### 1️⃣ Configuration Flow (One-time Setup)
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'fontSize': '16px'}}}%%
 graph TD
-    A[👤 Customer] -->|Creates| B[🔧 Foundry Connection<br/>APIM/ModelGateway]
-    B -.->|Contains| C[📋 Configuration Details]
+    A[👤 Customer<br/>Administrator] -->|Creates & Configures| B[🔧 Foundry Connection<br/>APIM/ModelGateway]
+    B -.->|Contains| C[📋 Configuration<br/>Details]
     
-    C --> D[🌐 Gateway Endpoint Details]
-    D --> D1[Base URL/Endpoint]
-    D --> D2[API Version]
-    D --> D3[Endpoint Path/Route]
+    C --> D[🌐 Gateway Endpoint<br/>Details]
+    D --> D1[🔗 Base URL/Endpoint]
+    D --> D2[📌 API Version]
+    D --> D3[🏷️ Custom Headers]
     
-    C --> E[🔑 Authentication Configuration]
+    C --> E[🔑 Authentication<br/>Configuration]
     E --> E1[🔐 API Key]
     E --> E2[🛡️ OAuth 2.0]
     E --> E3[🆔 Azure AD/Entra ID]
     
-    C --> F[🔍 Model Discovery Config]
-    F --> F1[� Static Models List]
+    C --> F[🔍 Model Discovery<br/>Configuration]
+    F --> F1[📋 Static Models List]
     F --> F2[🌐 Discovery Endpoint]
     
-    C --> G[⚙️ Additional Configurations]
-    G --> G1[🏷️ Custom Headers]
-    G --> G2[📑 Request Metadata]
-    G --> G3[⏱️ Timeout Settings]
-    
-    style A fill:#e1f5fe,color:#000
-    style B fill:#fff3e0,color:#000
-    style C fill:#f3e5f5,color:#000
-    style D fill:#e8f5e8,color:#000
-    style E fill:#fff9c4,color:#000
-    style F fill:#e3f2fd,color:#000
-    style G fill:#fce4ec,color:#000
+    style A fill:#e1f5fe,color:#000,stroke:#0288d1,stroke-width:3px
+    style B fill:#fff3e0,color:#000,stroke:#ff9800,stroke-width:3px
+    style C fill:#f3e5f5,color:#000,stroke:#9c27b0,stroke-width:2px
+    style D fill:#e8f5e8,color:#000,stroke:#4caf50,stroke-width:2px
+    style E fill:#fff9c4,color:#000,stroke:#ffeb3b,stroke-width:2px
+    style F fill:#e3f2fd,color:#000,stroke:#2196f3,stroke-width:2px
+    style D1 fill:#f1f8e9,color:#000,stroke:#8bc34a,stroke-width:1px
+    style D2 fill:#f1f8e9,color:#000,stroke:#8bc34a,stroke-width:1px
+    style D3 fill:#f1f8e9,color:#000,stroke:#8bc34a,stroke-width:1px
+    style E1 fill:#fffde7,color:#000,stroke:#ffc107,stroke-width:1px
+    style E2 fill:#fffde7,color:#000,stroke:#ffc107,stroke-width:1px
+    style E3 fill:#fffde7,color:#000,stroke:#ffc107,stroke-width:1px
+    style F1 fill:#e8f4fd,color:#000,stroke:#03a9f4,stroke-width:1px
+    style F2 fill:#e8f4fd,color:#000,stroke:#03a9f4,stroke-width:1px
 ```
 
 <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
@@ -94,65 +97,68 @@ graph TD
 
 | Component | Description | Examples |
 |-----------|-------------|----------|
-| **🌐 Gateway Endpoints** | Base URLs and API routing details | `https://my-gateway.company.com/api/v1` |
+| **🌐 Gateway Endpoints** | Base URLs, API versions, and custom headers | `https://my-gateway.company.com/api/v1`, `X-Custom-Header: value` |
 | **🔑 Authentication** | Security credentials and methods | API keys, OAuth tokens, Azure AD integration |
 | **🔍 Model Discovery** | How to find available models | Static list or dynamic discovery endpoint |
-| **⚙️ Additional Config** | Custom headers, metadata, timeouts | `X-Custom-Header: value`, request timeouts |
 
 </div>
 
 #### 2️⃣ Runtime Communication Flow (During Agent Execution)
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'fontSize': '16px'}}}%%
 graph TB
-    subgraph ModelDiscovery["📋 Model Discovery Flow"]
+    subgraph ModelDiscovery["📋 Model Discovery"]
         direction LR
         A1[🤖 Foundry<br/>Agents Service] -->|1. Read Config| B1[🔧 Connection<br/>Configuration]
-        A1 -->|2. Check Model Source| C1{Static Models<br/>Configured?}
-        C1 -->|Yes| D1[✅ Use Static<br/>Model List]
-        C1 -->|No - Discovery URL| E1[🏢 Customer's<br/>Gateway]
-        E1 -->|3. GET /models| F1[🧠 AI Models]
+        A1 -->|2. Check Model Source| C1{🔍 Static Models<br/>Configured?}
+        C1 -->|✅ Yes| D1[📋 Use Static<br/>Model List]
+        C1 -->|🌐 No - Discovery URL| E1[🏢 Customer's<br/>Gateway]
+        E1 -->|3. GET /models| F1[🧠 AI Models<br/>Collection]
     end
     
-    subgraph InferenceFlow["💬 Inference Flow (Chat Completion)"]
+    subgraph InferenceFlow["💬 Inference Flow"]
         direction LR
         A2[🤖 Foundry<br/>Agents Service] -->|1. Read Config| B2[🔧 Connection<br/>Configuration]
-        A2 -->|2. POST /chat/completions| C2[🏢 Customer's<br/>Gateway]
-        C2 -->|3. Forward Request| D2[🧠 AI Models]
+        A2 -->|2. POST /chat/completions<br/>with tools| C2[🏢 Customer's<br/>Gateway]
+        C2 -->|3. Forward Request<br/>to Models| D2[🧠 AI Models<br/>Response]
     end
     
     ModelDiscovery ~~~ InferenceFlow
     
-    style A1 fill:#0078d4,color:#fff
-    style B1 fill:#fff3e0,color:#000
-    style C1 fill:#ffd54f,color:#000
-    style D1 fill:#c8e6c9,color:#000
-    style E1 fill:#40e0d0,color:#000
-    style F1 fill:#90ee90,color:#000
-    style A2 fill:#0078d4,color:#fff
-    style B2 fill:#fff3e0,color:#000
-    style C2 fill:#40e0d0,color:#000
-    style D2 fill:#90ee90,color:#000
+    style A1 fill:#0078d4,color:#fff,stroke:#005a9e,stroke-width:3px
+    style B1 fill:#fff3e0,color:#000,stroke:#ff9800,stroke-width:2px
+    style C1 fill:#ffd54f,color:#000,stroke:#ff8f00,stroke-width:2px
+    style D1 fill:#f0f0f0,color:#000,stroke:#666666,stroke-width:2px
+    style E1 fill:#e3f2fd,color:#000,stroke:#2196f3,stroke-width:2px
+    style F1 fill:#f0f0f0,color:#000,stroke:#666666,stroke-width:2px
+    style A2 fill:#0078d4,color:#fff,stroke:#005a9e,stroke-width:3px
+    style B2 fill:#fff3e0,color:#000,stroke:#ff9800,stroke-width:2px
+    style C2 fill:#e3f2fd,color:#000,stroke:#2196f3,stroke-width:2px
+    style D2 fill:#f0f0f0,color:#000,stroke:#666666,stroke-width:2px
+    
+    style ModelDiscovery fill:#f0f8ff,stroke:#0078d4,stroke-width:2px
+    style InferenceFlow fill:#f9f9f9,stroke:#666666,stroke-width:2px
 ```
 
 <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
 
 **🔄 Two Communication Flows with Connection Configuration:**
 
-| Flow Type | Steps | Purpose | Forward Calls |
-|-----------|-------|---------|---------------|
+| Flow Type | Steps | Purpose | API Calls |
+|-----------|-------|---------|-----------|
 | **📋 Model Discovery** | 1. Read config → 2. Check source → 3. Use static OR call discovery | Get available models | `GET /models` (if discovery endpoint configured) |
 | **💬 Inference Flow** | 1. Read config → 2. Make chat request | AI model requests | `POST /chat/completions` with tools |
 
 **📝 Flow Details:**
 
-**Model Discovery (Forward Flow):**
+**Model Discovery:**
 - Step 1: Foundry Agents Service reads connection configuration
 - Step 2: Foundry Agents Service checks if static models are configured or discovery endpoint is set
 - **If Static Models**: Use pre-configured model list directly
-- **If Discovery Endpoint**: Forward `GET /models` call through customer gateway to AI models
+- **If Discovery Endpoint**: Call `GET /models` through customer gateway to AI models
 
-**Inference Flow (Forward Flow):**
+**Inference Flow:**
 - Step 1: Foundry Agents Service reads connection configuration
 - Step 2: Foundry makes `POST /chat/completions` call to customer gateway
 - Step 3: Gateway forwards request to AI models
@@ -171,24 +177,11 @@ graph TB
 
 ### 🚪 Supported Gateway Types
 
-<div style="display: flex; gap: 20px; margin: 20px 0;">
-
-<div style="flex: 1; background-color: #f0f8ff; padding: 20px; border-radius: 8px; border-left: 4px solid #0078d4;">
-<h4>🏢 Azure API Management</h4>
-<p>Enterprise-grade API gateway with built-in Azure integration and advanced security features</p>
-</div>
-
-<div style="flex: 1; background-color: #f0fff0; padding: 20px; border-radius: 8px; border-left: 4px solid #28a745;">
-<h4>🔧 Self-Hosted Gateways</h4>
-<p>Custom gateway solutions deployed in your own infrastructure with full control</p>
-</div>
-
-<div style="flex: 1; background-color: #fff5f5; padding: 20px; border-radius: 8px; border-left: 4px solid #dc3545;">
-<h4>🌐 Third-Party Gateways</h4>
-<p>Enterprise solutions like MuleSoft, Kong, or other API management platforms</p>
-</div>
-
-</div>
+| Gateway Type | Description | Key Features |
+|-------------|-------------|--------------|
+| **🏢 Azure API Management** | Enterprise-grade API gateway with built-in Azure integration and advanced security features | • Built-in Azure integration<br/>• Advanced security policies<br/>• Enterprise-grade scalability<br/>**📚 Sample Setup:** [AI Gateway with APIM](https://github.com/Azure-Samples/AI-Gateway) |
+| **🔧 Self-Hosted Gateways** | Custom gateway solutions deployed in your own infrastructure with full control | • Complete infrastructure control<br/>• Custom security implementations<br/>• Flexible deployment options |
+| **🌐 Third-Party Gateways** | Enterprise solutions like MuleSoft, Kong, or other API management platforms | • Vendor-specific features<br/>• Existing enterprise integrations<br/>• Multi-cloud capabilities |
 
 ### ✅ Gateway Prerequisites
 
