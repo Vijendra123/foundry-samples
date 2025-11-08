@@ -199,7 +199,7 @@ Controls how deployment names are passed to the provider API.
 
 ```json
 {
-  "deploymentInPath": true  // or false
+  "deploymentInPath": "true"  // or "false"
 }
 ```
 
@@ -243,7 +243,7 @@ Specifies the API version for deployment management calls (listing deployments, 
       "getModelEndpoint": "/openai/deployments/{deploymentName}",
       "deploymentProvider": "AzureOpenAI"
     },
-    "deploymentInPath": true,
+    "deploymentInPath": "true",
     "inferenceAPIVersion": "2025-03-01",
     "deploymentAPIVersion": "2025-03-01"
   }
@@ -347,7 +347,7 @@ Specifies the API version for deployment management calls (listing deployments, 
         "getModelEndpoint": "/deployments/{deploymentName}",
         "deploymentProvider": "AzureOpenAI"
       },
-      "deploymentInPath": true,
+      "deploymentInPath": "true",
       "inferenceAPIVersion": "2024-02-01",
       "deploymentAPIVersion": "2024-02-01"
     }
@@ -401,7 +401,7 @@ Specifies the API version for deployment management calls (listing deployments, 
           }
         }
       ],
-      "deploymentInPath": true,
+      "deploymentInPath": "true",
       "inferenceAPIVersion": "2025-03-01"
     }
   }
