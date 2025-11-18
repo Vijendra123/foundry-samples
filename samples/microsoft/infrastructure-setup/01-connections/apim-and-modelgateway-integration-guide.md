@@ -255,6 +255,8 @@ Unified connections for various AI model providers through self-hosted or third-
 
 #### 🔧 For Self-Hosted/Third-Party Gateways
 
+📚 **Complete Setup Guide**: [Model Gateway Setup for Foundry Agents](./model-gateway/model-gateway-setup-guide-for-agents.md)
+
 - **🌐 Gateway Endpoint**: Publicly accessible or network-accessible gateway URL
 - **🔐 API Credentials**: Valid API keys or OAuth credentials
 - **💬 Model Endpoints**: Chat completion endpoints exposed through your gateway
@@ -332,7 +334,8 @@ Unified connections for various AI model providers through self-hosted or third-
 
 | Resource | Description | Link |
 |----------|-------------|------|
-| **🏢 Azure API Management Setup Guide** | Complete guide for importing AI Foundry and Azure OpenAI resources, adding list/get deployment endpoints, and verification | [APIM Setup Guide](./apim-setup-guide.md) |
+| **🏢 Azure API Management Setup Guide** | Complete guide for importing AI Foundry and Azure OpenAI resources, adding list/get deployment endpoints, and verification | [APIM Setup Guide](./apim/apim-setup-guide-for-agents.md) |
+| **🔧 Model Gateway Setup Guide** | Complete guide for preparing self-hosted or third-party AI model gateways to work seamlessly with Foundry Agents | [Model Gateway Setup Guide](./model-gateway/model-gateway-setup-guide-for-agents.md) |
 | **📖 Azure API Management GenAI Gateway** | Official Microsoft documentation on Azure API Management GenAI gateway capabilities and features | [GenAI Gateway Capabilities](https://learn.microsoft.com/en-in/azure/api-management/genai-gateway-capabilities) |
 | **🔗 Azure AI Foundry API in APIM** | Official Microsoft documentation on integrating Azure AI Foundry APIs with Azure API Management | [Azure AI Foundry API](https://learn.microsoft.com/en-in/azure/api-management/azure-ai-foundry-api) |
 | **🔗 Azure OpenAI API from Specification** | Official Microsoft documentation on importing Azure OpenAI APIs into Azure API Management from specification | [Azure OpenAI API Import](https://learn.microsoft.com/en-in/azure/api-management/azure-openai-api-from-specification) |
