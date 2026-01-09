@@ -3,22 +3,22 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "projectResourceId": {
-      "value": "/subscriptions/YOUR-SUBSCRIPTION-ID/resourceGroups/YOUR-RG/providers/Microsoft.CognitiveServices/accounts/YOUR-AI-FOUNDRY-ACCOUNT/projects/YOUR-PROJECT"
+      "value": "/subscriptions/921496dc-987f-410f-bd57-426eb2611356/resourceGroups/agents-e2e-tests-canadacentral/providers/Microsoft.CognitiveServices/accounts/e2e-tests-canadacentral-account/projects/e2e-tests-canadacentral"
     },
     "apimResourceId": {
-      "value": "/subscriptions/YOUR-SUBSCRIPTION-ID/resourceGroups/YOUR-APIM-RG/providers/Microsoft.ApiManagement/service/YOUR-APIM-SERVICE"
+      "value": "/subscriptions/47f1c914-e299-4953-a99d-3e34644cfe1c/resourceGroups/rg-agent-test-westus2/providers/Microsoft.ApiManagement/service/rg-agent-aigateway-westus2"
     },
     "apiName": {
-      "value": "YOUR-API-NAME"
+      "value": "foundry"
     },
     "connectionName": {
-      "value": "YOUR-CONNECTION-NAME"
+      "value": "my-apim-mi-connection"
     },
     "authType": {
-      "value": "ApiKey"
+      "value": "AAD"
     },
     "isSharedToAll": {
-      "value": false
+      "value": true
     },
     "deploymentInPath": {
       "_comment": "true or false - Set based on setup guide to avoid 404 errors in agents",
@@ -34,21 +34,170 @@
     "staticModels": {
       "value": [
         {
-          "name": "YOUR-MODEL-DEPLOYMENT-NAME-1",
+          "name": "gpt-4o",
           "properties": {
             "model": {
-              "name": "YOUR-MODEL-NAME-1",
-              "version": "YOUR-MODEL-VERSION-1",
+              "name": "gpt-4o",
+              "version": "2024-11-20",
               "format": "OpenAI"
             }
           }
         },
         {
-          "name": "YOUR-MODEL-DEPLOYMENT-NAME-2",
+          "name": "gpt-4o-2",
           "properties": {
             "model": {
-              "name": "YOUR-MODEL-NAME-2",
-              "version": "YOUR-MODEL-VERSION-2",
+              "name": "gpt-4o",
+              "version": "2024-08-06",
+              "format": "OpenAI"
+            }
+          }
+        },
+        {
+          "name": "gpt-4o-3",
+          "properties": {
+            "model": {
+              "name": "gpt-4o",
+              "version": "2024-05-13",
+              "format": "OpenAI"
+            }
+          }
+        },
+        {
+          "name": "gpt-4o-mini",
+          "properties": {
+            "model": {
+              "name": "gpt-4o-mini",
+              "version": "2024-07-18",
+              "format": "OpenAI"
+            }
+          }
+        },
+        {
+          "name": "gpt-4o-realtime-preview",
+          "properties": {
+            "model": {
+              "name": "gpt-4o-realtime-preview",
+              "version": "2024-10-01",
+              "format": "OpenAI"
+            }
+          }
+        },
+        {
+          "name": "gpt-4-turbo",
+          "properties": {
+            "model": {
+              "name": "gpt-4-turbo",
+              "version": "2024-04-09",
+              "format": "OpenAI"
+            }
+          }
+        },
+        {
+          "name": "gpt-4",
+          "properties": {
+            "model": {
+              "name": "gpt-4",
+              "version": "0613",
+              "format": "OpenAI"
+            }
+          }
+        },
+        {
+          "name": "gpt-35-turbo",
+          "properties": {
+            "model": {
+              "name": "gpt-35-turbo",
+              "version": "0125",
+              "format": "OpenAI"
+            }
+          }
+        },
+        {
+          "name": "gpt-35-turbo-16k",
+          "properties": {
+            "model": {
+              "name": "gpt-35-turbo-16k",
+              "version": "0613",
+              "format": "OpenAI"
+            }
+          }
+        },
+        {
+          "name": "text-embedding-3-large",
+          "properties": {
+            "model": {
+              "name": "text-embedding-3-large",
+              "version": "1",
+              "format": "OpenAI"
+            }
+          }
+        },
+        {
+          "name": "text-embedding-3-small",
+          "properties": {
+            "model": {
+              "name": "text-embedding-3-small",
+              "version": "1",
+              "format": "OpenAI"
+            }
+          }
+        },
+        {
+          "name": "text-embedding-ada-002",
+          "properties": {
+            "model": {
+              "name": "text-embedding-ada-002",
+              "version": "2",
+              "format": "OpenAI"
+            }
+          }
+        },
+        {
+          "name": "dall-e-3",
+          "properties": {
+            "model": {
+              "name": "dall-e-3",
+              "version": "3.0",
+              "format": "OpenAI"
+            }
+          }
+        },
+        {
+          "name": "whisper",
+          "properties": {
+            "model": {
+              "name": "whisper",
+              "version": "001",
+              "format": "OpenAI"
+            }
+          }
+        },
+        {
+          "name": "tts-1",
+          "properties": {
+            "model": {
+              "name": "tts-1",
+              "version": "001",
+              "format": "OpenAI"
+            }
+          }
+        },
+        {
+          "name": "gpt-5",
+          "properties": {
+            "model": {
+              "name": "gpt-5",
+              "version": "latest",
+              "format": "OpenAI"
+            }
+          }
+        },
+        {
+          "name": "gpt-4o",
+          "properties": {
+            "model": {
+              "name": "gpt-4o",
               "format": "OpenAI"
             }
           }
