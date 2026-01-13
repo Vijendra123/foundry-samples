@@ -15,7 +15,8 @@
       "value": "my-apim-mi-connection"
     },
     "authType": {
-      "value": "ProjectManagedIdentity"
+      "_comment": "Set to ApiKey or ProjectManagedIdentity",
+      "value": "ApiKey"
     },
     "isSharedToAll": {
       "value": true
