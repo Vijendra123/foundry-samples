@@ -74,7 +74,6 @@ resource connectionApiKey 'Microsoft.CognitiveServices/accounts/projects/connect
   }
 }
 
-//TODO: Future AAD connection (when role assignments are implemented)
 resource connectionAAD 'Microsoft.CognitiveServices/accounts/projects/connections@2025-04-01-preview' = if (authType == 'ProjectManagedIdentity') {
   name: connectionName
   parent: aiProject
