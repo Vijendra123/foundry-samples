@@ -3,10 +3,10 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "projectResourceId": {
-      "value": "/subscriptions/921496dc-987f-410f-bd57-426eb2611356/resourceGroups/agents-e2e-tests-canadacentral/providers/Microsoft.CognitiveServices/accounts/e2e-tests-canadacentral-account/projects/e2e-tests-canadacentral"
+      "value": "/subscriptions/YOUR-SUBSCRIPTION-ID/resourceGroups/YOUR-RG/providers/Microsoft.CognitiveServices/accounts/YOUR-AI-FOUNDRY-ACCOUNT/projects/YOUR-PROJECT"
     },
     "apimResourceId": {
-      "value": "/subscriptions/47f1c914-e299-4953-a99d-3e34644cfe1c/resourceGroups/rg-agent-test-westus2/providers/Microsoft.ApiManagement/service/rg-agent-aigateway-westus2"
+      "value": "/subscriptions/YOUR-SUBSCRIPTION-ID/resourceGroups/YOUR-RG/providers/Microsoft.ApiManagement/service/YOUR-APIM-SERVICE"
     },
     "apiName": {
       "value": "foundry"
@@ -15,7 +15,7 @@
       "value": "my-apim-mi-connection"
     },
     "authType": {
-      "value": "AAD"
+      "value": "ProjectManagedIdentity"
     },
     "isSharedToAll": {
       "value": true

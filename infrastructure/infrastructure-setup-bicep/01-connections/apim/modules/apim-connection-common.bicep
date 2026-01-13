@@ -82,7 +82,7 @@ resource connectionAAD 'Microsoft.CognitiveServices/accounts/projects/connection
     category: 'ApiManagement'
     target: '${existingApim.properties.gatewayUrl}/${apimApi.properties.path}'
     authType: 'ProjectManagedIdentity'
-    audience: 'https://cognitiveservices.azure.com/.default'
+    audience: 'https://cognitiveservices.azure.com'
     isSharedToAll: isSharedToAll
     credentials: {}
     metadata: metadata
