@@ -387,7 +387,6 @@ FodyWeavers.xsd
 
 # VS Code files for those working on multiple tools
 .vscode/*
-!.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
@@ -456,3 +455,6 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+samples/microsoft/nul
+samples/microsoft/microsoft.sln
+samples/microsoft/developer-journey-stage-1-idea-to-prototype.md
