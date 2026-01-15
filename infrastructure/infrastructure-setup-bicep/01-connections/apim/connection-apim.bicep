@@ -110,6 +110,10 @@ var validationMessage = bothConfiguredError ? 'ERROR: Cannot configure both stat
 var neitherConfiguredError = !hasModelDiscovery && !hasStaticModels
 var neitherConfiguredMessage = 'ERROR: Must configure either static models (staticModels array) OR dynamic discovery (listModelsEndpoint, getModelEndpoint, deploymentProvider). Cannot have neither.'
 
+// Validation: Fail deployment if ProjectManagedIdentity is used with dynamic discovery
+var pmiWithDynamicDiscoveryError = authType == 'ProjectManagedIdentity' && hasModelDiscovery
+var pmiValidationMessage = 'ERROR: ProjectManagedIdentity authentication is only supported with static models. Use ApiKey authentication for dynamic model discovery.'
+
 // Force deployment failure if both are configured
 resource deploymentValidation 'Microsoft.Resources/deploymentScripts@2023-08-01' = if (bothConfiguredError) {
   name: 'validation-error-${uniqueString(resourceGroup().id)}'
@@ -130,6 +134,18 @@ resource configValidation 'Microsoft.Resources/deploymentScripts@2023-08-01' = i
   properties: {
     azPowerShellVersion: '8.0'
     scriptContent: 'throw "${neitherConfiguredMessage}"'
+    retentionInterval: 'PT1H'
+  }
+}
+
+// Force deployment failure if ProjectManagedIdentity is used with dynamic discovery
+resource pmiValidation 'Microsoft.Resources/deploymentScripts@2023-08-01' = if (pmiWithDynamicDiscoveryError) {
+  name: 'pmi-validation-error-${uniqueString(resourceGroup().id)}'
+  location: resourceGroup().location
+  kind: 'AzurePowerShell'
+  properties: {
+    azPowerShellVersion: '8.0'
+    scriptContent: 'throw "${pmiValidationMessage}"'
     retentionInterval: 'PT1H'
   }
 }
@@ -174,7 +190,7 @@ var metadata = union(
 // DEPLOYMENT
 // ========================================
 
-module apimConnection 'modules/apim-connection-common.bicep' = if (!bothConfiguredError && !neitherConfiguredError) {
+module apimConnection 'modules/apim-connection-common.bicep' = if (!bothConfiguredError && !neitherConfiguredError && !pmiWithDynamicDiscoveryError) {
   name: 'unified-apim-connection'
   params: {
     projectResourceId: projectResourceId
